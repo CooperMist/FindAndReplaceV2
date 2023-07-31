@@ -134,8 +134,8 @@ export function findTags(text, excludeList, leftMarker, rightMarker, leftLength,
 			break;
 		startPosition += next;
 		// get the tag name from inside the markers.  
-		var tag = text.substring(startPosition + leftLength, startPosition + leftLength + text.substring(startPosition + leftLength).search(rightMarker));
-		tag = tag.replace(/\[|\]/g, "");
+		var leftPosition = text.substring(startPosition).search(/\[\[/g);
+		var tag = text.substring(startPosition + leftLength + leftPosition, startPosition + leftLength + text.substring(startPosition + leftLength).search(rightMarker));
 		if (!tags.includes(tag) && !excludeList.includes(tag))
 			tags.push(tag);
 		startPosition += leftLength + tag.length + rightLength;
@@ -148,7 +148,7 @@ export function getRowContents(row) {
     'selected': row.cells[0].children[0].checked,
     'left': row.cells[1].children[0].value,
     'right': row.cells[2].children[0].value
-  }
+  };
 }
 
 export function autopopulateTags() {
