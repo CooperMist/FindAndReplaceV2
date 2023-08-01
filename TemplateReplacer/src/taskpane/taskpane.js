@@ -10,10 +10,12 @@ Office.onReady((info) => {
 		document.getElementById("sideload-msg").style.display = "none";
 		document.getElementById("app-body").style.display = "flex";
 		document.getElementById("add").onclick = () => addRowToTable("", "");
+		document.getElementById("remove-all").onclick = () => removeAllTags();
 		document.getElementById("remove-selected").onclick = () => removeSelectedTags();
-		document.getElementById("replace-selected").onclick = () => replaceDocumentTags(true);
 		document.getElementById("replace-all").onclick = () => replaceDocumentTags(false);
+		document.getElementById("replace-selected").onclick = () => replaceDocumentTags(true);		
 		document.getElementById("autopopulate").onclick = autopopulateTags;
+		
 		// document.getElementById("add").onclick = () => addRowToTable("", "");
 		// loadSampleData("This is a sample text [[inserted]] in [[the]] document");
 	}	
@@ -78,12 +80,22 @@ export function getFirstSelectedTag(rows) {
 	return -1;
 	
 }
+
 export function removeSelectedTags() {
 	var table = document.getElementById("tag-table");
 	var index = getFirstSelectedTag(table.rows);
 	while (index != -1) {
 		table.deleteRow(index);
 		index = getFirstSelectedTag(table.rows);
+	}
+}
+
+export function removeAllTags() {
+	var table = document.getElementById("tag-table");
+	var index = rows.length-1;
+	while (index != -1) {
+		table.deleteRow(index);
+		index--;
 	}
 }
 
